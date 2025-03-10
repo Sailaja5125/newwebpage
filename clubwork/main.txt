@@ -1,0 +1,8 @@
+write the main code components part 
+write all the parts of the website in the subcomponents
+write all the routing in the folder page 
+home/page.jsx
+about/page.jsx
+contact/page.jsx
+schedule/page.jsx
+problemstatements/page.jsx

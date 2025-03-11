@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import { useWindowScroll } from 'react-use';
 import { TiLocationArrow } from 'react-icons/ti';
 
-const navItems = ['Events', 'Schedule', 'Sponsors', 'About', 'Contact'];
+const navItems = ['Domains', 'Schedule', 'Sponsors', 'About', 'Contact'];
 
 const NavBar = () => {
   // State for toggling audio and visual indicator

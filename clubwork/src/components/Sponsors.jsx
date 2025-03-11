@@ -38,7 +38,7 @@ function Sponsors() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Sponsors

@@ -1,5 +1,5 @@
 "use client";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import React, { useEffect, useState, useRef } from "react";
 
 // Update the helper to accept width and height so it's only called after mounting.

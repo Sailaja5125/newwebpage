@@ -1,4 +1,4 @@
-import Sponsors from '@/Components/Sponsors'
+import Sponsors from '../../components/Sponsors'
 import React from 'react'
 
 function page() {

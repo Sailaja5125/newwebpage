@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "./../../lib/utils";
 
 export function SignupFormDemo() {
   const [formData, setFormData] = useState({

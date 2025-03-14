@@ -1,4 +1,4 @@
-import Ps from '@/components/Ps'
+import Ps from '../../components/Ps'
 import React from 'react'
 
 function page() {

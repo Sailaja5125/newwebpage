@@ -1,5 +1,5 @@
 'use client'
-import Events from '@/Components/Events'
+import Events from '../../components/Events'
 import React from 'react'
 
 function page() {

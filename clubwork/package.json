@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.2",
     "@splinetool/react-spline": "^4.0.0",
     "@tabler/icons-react": "^3.31.0",
     "clsx": "^2.1.1",

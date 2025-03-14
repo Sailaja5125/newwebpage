@@ -144,7 +144,7 @@ export function TimelineDemo() {
     },
   ];
   return (
-    (<div className="w-full">
+    (<div className="w-full bg-neutral-900">
       <Timeline data={data} />
     </div>)
   );

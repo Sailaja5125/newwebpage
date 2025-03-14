@@ -1,11 +1,12 @@
 'use client'
 import React from 'react'
-import { AnimatedTestimonialsDemo } from './sub/Testimonials'
+
+import { InfiniteMovingCardsDemo } from './sub/Testimonials2'
 
 function Dignitaries() {
   return (
-    <div>
-      <AnimatedTestimonialsDemo />
+    <div className='bg-black w-screen h-dvh'>
+      <InfiniteMovingCardsDemo/>
     </div>
   )
 }

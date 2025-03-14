@@ -1,24 +1,26 @@
-'use client'
+"use client";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState, useRef } from "react";
 
-const getRandomStartPoint = () => {
+// Update the helper to accept width and height so it's only called after mounting.
+const getRandomStartPoint = (width, height) => {
   const side = Math.floor(Math.random() * 4);
-  const offset = Math.random() * window.innerWidth;
+  const offset = Math.random() * width;
 
   switch (side) {
     case 0:
       return { x: offset, y: 0, angle: 45 };
     case 1:
-      return { x: window.innerWidth, y: offset, angle: 135 };
+      return { x: width, y: offset, angle: 135 };
     case 2:
-      return { x: offset, y: window.innerHeight, angle: 225 };
+      return { x: offset, y: height, angle: 225 };
     case 3:
       return { x: 0, y: offset, angle: 315 };
     default:
       return { x: 0, y: 0, angle: 45 };
   }
 };
+
 export const ShootingStars = ({
   minSpeed = 10,
   maxSpeed = 30,
@@ -30,12 +32,21 @@ export const ShootingStars = ({
   starHeight = 1,
   className,
 }) => {
+  const [isMounted, setIsMounted] = useState(false);
   const [star, setStar] = useState(null);
   const svgRef = useRef(null);
 
+  // Set mounted state so we can safely use window dimensions
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Create a new star after a random delay
+  useEffect(() => {
+    if (!isMounted) return;
+    const { innerWidth, innerHeight } = window;
     const createStar = () => {
-      const { x, y, angle } = getRandomStartPoint();
+      const { x, y, angle } = getRandomStartPoint(innerWidth, innerHeight);
       const newStar = {
         id: Date.now(),
         x,
@@ -46,17 +57,17 @@ export const ShootingStars = ({
         distance: 0,
       };
       setStar(newStar);
-
       const randomDelay = Math.random() * (maxDelay - minDelay) + minDelay;
       setTimeout(createStar, randomDelay);
     };
 
     createStar();
+  }, [isMounted, minSpeed, maxSpeed, minDelay, maxDelay]);
 
-    return () => {};
-  }, [minSpeed, maxSpeed, minDelay, maxDelay]);
-
+  // Animate the star's movement
   useEffect(() => {
+    if (!isMounted) return;
+
     const moveStar = () => {
       if (star) {
         setStar((prevStar) => {
@@ -69,6 +80,7 @@ export const ShootingStars = ({
             prevStar.speed * Math.sin((prevStar.angle * Math.PI) / 180);
           const newDistance = prevStar.distance + prevStar.speed;
           const newScale = 1 + newDistance / 100;
+          // If the star goes out of bounds, remove it (it will be recreated)
           if (
             newX < -20 ||
             newX > window.innerWidth + 20 ||
@@ -86,14 +98,18 @@ export const ShootingStars = ({
           };
         });
       }
+      requestAnimationFrame(moveStar);
     };
 
     const animationFrame = requestAnimationFrame(moveStar);
     return () => cancelAnimationFrame(animationFrame);
-  }, [star]);
+  }, [star, isMounted]);
+
+  // Until the component is mounted, render nothing
+  if (!isMounted) return null;
 
   return (
-    (<svg ref={svgRef} className={cn("w-full h-full absolute inset-0", className)}>
+    <svg ref={svgRef} className={cn("w-full h-full absolute inset-0", className)}>
       {star && (
         <rect
           key={star.id}
@@ -104,7 +120,8 @@ export const ShootingStars = ({
           fill="url(#gradient)"
           transform={`rotate(${star.angle}, ${
             star.x + (starWidth * star.scale) / 2
-          }, ${star.y + starHeight / 2})`} />
+          }, ${star.y + starHeight / 2})`}
+        />
       )}
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -112,6 +129,6 @@ export const ShootingStars = ({
           <stop offset="100%" style={{ stopColor: starColor, stopOpacity: 1 }} />
         </linearGradient>
       </defs>
-    </svg>)
+    </svg>
   );
 };

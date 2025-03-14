@@ -1,40 +1,20 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import Spline from '@splinetool/react-spline/next';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { useWindowScroll } from 'react-use';
 import { TiLocationArrow } from 'react-icons/ti';
 
-const navItems = ['Domains', 'Schedule', 'Sponsors', 'About', 'Contact'];
+const navItems = ['Domains', 'Schedule', 'Sponsors',  'register'];
 
 const NavBar = () => {
-  // State for toggling audio and visual indicator
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [isIndicatorActive, setIsIndicatorActive] = useState(false);
-
-  // Refs for audio and navigation container
-  const audioElementRef = useRef(null);
   const navContainerRef = useRef(null);
-
   const { y: currentScrollY } = useWindowScroll();
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // Toggle audio and visual indicator
-  const toggleAudioIndicator = () => {
-    setIsAudioPlaying((prev) => !prev);
-    setIsIndicatorActive((prev) => !prev);
-  };
 
-  // Manage audio playback
-  useEffect(() => {
-    if (isAudioPlaying) {
-      audioElementRef.current.play();
-    } else {
-      audioElementRef.current.pause();
-    }
-  }, [isAudioPlaying]);
+
 
   // Show/hide navbar on scroll
   useEffect(() => {
@@ -73,7 +53,8 @@ const NavBar = () => {
         <nav className="flex size-full items-center justify-between p-4">
           {/* Logo */}
           <div className="flex items-center gap-7">
-            <img src="/img/logo.png" alt="logo" className="w-10" />
+            <img src="/img/AU.png" alt="logo" className="w-20 h-10" />
+
           </div>
 
           {/* Navigation Links and Audio Button */}
@@ -89,29 +70,6 @@ const NavBar = () => {
                 </a>
               ))}
             </div>
-
-            <button
-              onClick={toggleAudioIndicator}
-              className="ml-10 flex items-center space-x-0.5"
-            >
-              <audio
-                ref={audioElementRef}
-                className="hidden"
-                src="/audio/loop.mp3"
-                loop
-              />
-              {[1, 2, 3, 4].map((bar) => (
-                <div
-                  key={bar}
-                  className={clsx('indicator-line', {
-                    active: isIndicatorActive,
-                  })}
-                  style={{
-                    animationDelay: `${bar * 0.1}s`,
-                  }}
-                />
-              ))}
-            </button>
           </div>
         </nav>
       </header>

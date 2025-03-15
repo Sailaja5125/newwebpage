@@ -145,8 +145,7 @@ export function SignupFormDemo() {
     return teamMembers.length === parseInt(teamSize, 10) - 1;
   };
 
-  // --- Submit handler: Upload formData to backend API ---
-  const [ScreenShotUrl, setScreenShotUrl] = useState("");
+  // --- Submit handler: Upload formData to backend API --
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = new FormData();
@@ -173,8 +172,6 @@ export function SignupFormDemo() {
       );
       const result = await res.json();
       console.log(result);
-      console.log(result.team);
-      setScreenShotUrl(result.team.screenshot);
     } catch (error) {
       console.error("Error submitting form:", error);
     }

@@ -20,11 +20,14 @@ export default function Hero() {
       />
 
       {/* On mobile, the text is at bottom-right; on md and larger, at bottom-left */}
-      <div className="w-screen h-10">
-      <h1 className="hero-heading absolute -bottom-2 left-8 z-40 text-blue-75 text-right font-circular-web">
+      
+      <h1 className="hero-heading absolute -bottom-2 left-8 z-40 text-blue-75 text-right font-circular-web ">
         Avensis
       </h1>
-      </div>
+      
+      <h1 className="hero-heading absolute top-20 left-8 z-40 text-blue-75 font-circular-web">
+        Join Us 
+      </h1>
     </div>
   );
 }

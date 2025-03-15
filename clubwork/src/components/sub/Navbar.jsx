@@ -53,8 +53,8 @@ const NavBar = () => {
         <nav className="flex size-full items-center justify-between p-4">
           {/* Logo */}
           <div className="flex items-center gap-7">
-            <img src="/img/AU.png" alt="logo" className="w-20 h-10" />
-
+            <img src="/img/AU.png" alt="logo" className="w-30 h-10" />
+            <img src="/img/csikalogo.png" className="w-30 h-20" alt="Csi logo" />
           </div>
 
           {/* Navigation Links and Audio Button */}

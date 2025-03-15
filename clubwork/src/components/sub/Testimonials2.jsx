@@ -1,7 +1,5 @@
 "use client";
-
 import React from "react";
-
 import { InfiniteMovingCards } from "../ui/infinity-moving-cards";
 export function InfiniteMovingCardsDemo() {
   return (
@@ -10,7 +8,7 @@ export function InfiniteMovingCardsDemo() {
       <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
     </div>)
   );
-}
+} 
 
 const testimonials = [
   {

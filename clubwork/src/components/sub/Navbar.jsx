@@ -5,16 +5,13 @@ import gsap from 'gsap';
 import { useWindowScroll } from 'react-use';
 import { TiLocationArrow } from 'react-icons/ti';
 
-const navItems = ['Domains', 'Schedule', 'Sponsors',  'register'];
+const navItems = ['Domains', 'register'];
 
 const NavBar = () => {
   const navContainerRef = useRef(null);
   const { y: currentScrollY } = useWindowScroll();
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-
-
-
 
   // Show/hide navbar on scroll
   useEffect(() => {

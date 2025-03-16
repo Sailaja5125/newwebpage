@@ -1,11 +1,12 @@
+
 import Spline from "@splinetool/react-spline/next";
 import { ShootingStarsAndStarsBackgroundDemo } from "./sub/ShootingStarsAndStarsBackgroundDemo";
 import NavBar from "./sub/Navbar";
 
 export default function Hero() {
   return (
-    <div className="relative w-full h-screen">
-      <NavBar />
+    <div className="w-full h-screen relative">
+      <NavBar/>
       <ShootingStarsAndStarsBackgroundDemo />
       <Spline
         scene="https://prod.spline.design/jo9Umq05WylHX5C8/scene.splinecode"
@@ -15,19 +16,25 @@ export default function Hero() {
           position: "absolute",
           top: 0,
           left: 0,
-          zIndex: 10
+          zIndex: 10,
         }}
       />
 
-      {/* On mobile, the text is at bottom-right; on md and larger, at bottom-left */}
-      
-      <h1 className="hero-heading absolute -bottom-2 left-8 z-40 text-blue-75 text-right font-circular-web ">
-        Avensis
-      </h1>
-      
-      <h1 className="hero-heading absolute top-20 left-8 z-40 text-blue-75 font-circular-web">
-        Join Us 
-      </h1>
+      {/* For mobile devices: both texts centered */}
+      <div className="flex flex-col items-center justify-center absolute inset-0 z-50 lg:hidden">
+        <h1 className="text-blue-75 hero-heading mb-4">Avensis</h1>
+        <h1 className="text-blue-75 hero-heading1 text-center">Regional Convention 2025</h1>
+      </div>
+
+      {/* For large devices: Avensis at top left and Regional Convention 2025 at bottom right */}
+      <div className="hidden lg:block absolute inset-0 z-50">
+        <h1 className="absolute top-20 left-2 text-blue-75 hero-heading">
+          Avensis
+        </h1>
+        <h1 className="absolute bottom-2 right-2 text-blue-75 hero-heading1">
+          Regional Convention 2025
+        </h1>
+      </div>
     </div>
   );
 }

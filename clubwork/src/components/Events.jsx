@@ -13,7 +13,7 @@ function Events() {
   return (
     <div className="min-h-screen w-full flex flex-col items-center sm:p-5">
       <AnimatedTitle
-        title="Igniting  Inn<b>o</b>vati<b>o</b>n , <br />p<b>o</b>wering  pr<b>o</b>gress "
+        title="Igniting  Inn<b>o</b>vati<b>o</b>n ,<br />p<b>o</b>wering  pr<b>o</b>gress "
         containerClass="mt-5 !text-white text-center"
       />
       <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 justify-center w-full px-4 sm:px-0">

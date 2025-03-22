@@ -19,7 +19,6 @@ export function SignupFormDemo() {
     screenShot: null,
   });
 
-  
   // State for team member modal and other UI states
   const [memberDetails, setMemberDetails] = useState({
     name: "",
@@ -32,7 +31,8 @@ export function SignupFormDemo() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError , setError] = useState(false)
+  const [isError, setError] = useState(false);
+
   // --- Handlers for main form ---
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -62,7 +62,6 @@ export function SignupFormDemo() {
     setFormData((prevData) => ({ ...prevData, screenShot: file }));
   };
 
-  
   // --- Handlers for team member modal ---
   const handleMemberInputChange = (e) => {
     const { id, value } = e.target;
@@ -124,6 +123,10 @@ export function SignupFormDemo() {
       screenShot,
       teamMembers,
     } = formData;
+    // Prevent selecting Project Expo with other events
+    if (events.includes("project expo") && events.length > 1) {
+      return false;
+    }
     if (
       !teamName ||
       !collegeName ||
@@ -145,107 +148,79 @@ export function SignupFormDemo() {
   // --- Fee Calculation ---
   const computeTotalFee = () => {
     let total = 0;
-    // Prices for hackathon/design-a-thon
-    const memberFeeNonMember = 700;
-    const memberFeeMember = 500;
-    // Price for project expo
-    const feeExpoPerPerson = 300;
-    const teamMemberCount = formData.teamMembers.length;
+    const feeNonMember = 700;
+    const feeMember = 500;
 
-    // Hackathon fee calculation (applied to team members)
-    if (formData.events.includes("hackathon")) {
-      let fee = 0;
+    // Check for invalid selection: Project Expo cannot be selected with any other event
+    if (formData.events.includes("project expo") && formData.events.length > 1) {
+      return 0;
+    }
+
+    // If only Project Expo is selected, calculate expo fee
+    if (formData.events.length === 1 && formData.events[0] === "project expo") {
+      total = 300;
+    }
+    // Otherwise, if Hackathon or Design-a-Thon (or both) are selected, calculate fee per team member
+    else if (
+      formData.events.includes("hackathon") ||
+      formData.events.includes("design-a-thon")
+    ) {
       formData.teamMembers.forEach((member) => {
-        if (
+        total +=
           member.membershipID &&
           member.membershipID !== "NA" &&
           member.membershipID.trim() !== ""
-        ) {
-          fee += memberFeeMember;
-        } else {
-          fee += memberFeeNonMember;
-        }
+            ? feeMember
+            : feeNonMember;
       });
-      total += fee;
     }
-
-    // Design-a-thon fee calculation (applied to team members)
-    if (formData.events.includes("design-a-thon")) {
-      let fee = 0;
-      formData.teamMembers.forEach((member) => {
-        if (
-          member.membershipID &&
-          member.membershipID !== "NA" &&
-          member.membershipID.trim() !== ""
-        ) {
-          fee += memberFeeMember;
-        } else {
-          fee += memberFeeNonMember;
-        }
-      });
-      total += fee;
-    }
-
-    // Project Expo fee calculation (applied to team members)
-    if (formData.events.includes("project expo")) {
-      const expoFee = feeExpoPerPerson * teamMemberCount;
-      total += expoFee;
-    }
-
     return total;
   };
 
-  // --- Submit handler (teamLeaderNumber is not appended to the payload) ---
-  // --- Submit handler (teamLeaderNumber is not appended to the payload) ---
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  console.log(formData);
-  setIsLoading(true);
-  const data = new FormData();
-  data.append("teamName", formData.teamName);
-  data.append("teamLeader", formData.teamLeader);
-  data.append("teamLeaderEmail", formData.teamLeaderEmail);
-  data.append("teamSize", formData.teamSize);
-  data.append("domain", formData.domain);
-  data.append("collegeName", formData.collegeName);
-  data.append("stateName", formData.stateName);
-  data.append("utrNumber", formData.utrNumber);
-  data.append("events", JSON.stringify(formData.events));
-  data.append("teamMembers", JSON.stringify(formData.teamMembers));
-  if (formData.screenShot) {
-    data.append("screenShot", formData.screenShot);
-  }
-
-  // Optional: Log form data for debugging
-  // for (const pair of data.entries()) {
-  //   console.log(pair[0], pair[1]);
-  // }
-
-  try {
-    const res = await fetch("https://hackathon-site-backend.onrender.com/api/v1/register", {
-      method: "POST",
-      body: data,
-    });
-
-    if (!res.ok) {
-      // Read the response text (likely HTML) to help with debugging
-      const errorText = await res.text();
-      throw new Error(`HTTP error ${res.status}: ${errorText}`);
+  // --- Submit handler ---
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    setIsLoading(true);
+    const data = new FormData();
+    data.append("teamName", formData.teamName);
+    data.append("teamLeader", formData.teamLeader);
+    data.append("teamLeaderEmail", formData.teamLeaderEmail);
+    data.append("teamSize", formData.teamSize);
+    data.append("domain", formData.domain);
+    data.append("collegeName", formData.collegeName);
+    data.append("stateName", formData.stateName);
+    data.append("utrNumber", formData.utrNumber);
+    data.append("events", JSON.stringify(formData.events));
+    data.append("teamMembers", JSON.stringify(formData.teamMembers));
+    if (formData.screenShot) {
+      data.append("screenShot", formData.screenShot);
     }
-    const result = await res.json();
-    console.log(result);
-    setSignupSuccess(true);
-    setTimeout(() => setSignupSuccess(false), 5000);
-  } catch (error) {
-    console.error("Error submitting form:", error);
-    setError(true)
-  } finally {
-    setIsLoading(false);
-  }
-};
+
+    try {
+      const res = await fetch("https://hackathon-site-backend.onrender.com/api/v1/register", {
+        method: "POST",
+        body: data,
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`HTTP error ${res.status}: ${errorText}`);
+      }
+      const result = await res.json();
+      console.log(result);
+      setSignupSuccess(true);
+      setTimeout(() => setSignupSuccess(false), 5000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen w-screen bg-white flex flex-col md:flex-row gap-4 p-4 relative">
+    <div className="min-h-screen w-screen bg-white dark:bg-neutral-900 flex flex-col md:flex-row gap-4 p-4 relative">
       {/* Loading Overlay */}
       {isLoading && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -254,32 +229,41 @@ const handleSubmit = async (e) => {
       )}
       {/* Success Alert */}
       {signupSuccess && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-md shadow-lg z-50">
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 dark:bg-green-700 text-white px-6 py-3 rounded-md shadow-lg z-50">
           Registration Successful!
         </div>
       )}
       {isError && (
-        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-md shadow-lg z-50">
-          Registration UnSuccessful enter correct details!
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 dark:bg-red-700 text-white px-6 py-3 rounded-md shadow-lg z-50">
+          Registration Unsuccessful – enter correct details!
         </div>
       )}
       <form onSubmit={handleSubmit} className="w-full flex flex-col md:flex-row gap-4">
         {/* Left Section */}
-        <div className="max-w-md w-full mx-auto md:mx-4 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-          <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
+        <div className="max-w-md w-full mx-auto md:mx-4 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-neutral-900">
+          <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-100">
             Register for AVENSIS 2025
           </h2>
-          <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
+          <p className="text-neutral-600 dark:text-neutral-300 text-sm max-w-sm mt-2 mb-3">
             <br />
             🚀 Be part of <strong>Avensis 2025</strong>, where innovation meets creativity!
             Secure your spot now and compete in the Hackathon, Design-a-Thon, or showcase your project at the Expo! 💡 <br />
             Registration Fees: <br />
-            🔹 Hackathon – Rs.700 per person (Rs.500 for members) <br />
-            🔹 Design-a-Thon – Rs.700 per person (Rs.500 for members) <br />
-            🔹 Project Expo – Rs.300 per person
+            🔹 Hackathon – Rs.700 per person (Rs.300 for members) <br />
+            🔹 Design-a-Thon – Rs.700 per person (Rs.300 for members) <br />
+            🔹 Project Expo – Rs.300 per Team <br />
+            <strong className="text-red-700 
+            dark:text-red-400">
+              Note: You can't participate in other events if you are participating in Project Expo
+            </strong>
+            <br />
+            <strong className="text-green-700 
+            dark:text-green-400">
+              🎉Bonus: A team can participate in both Hackathon and Design-a-Thon at same Registration Amount per person
+            </strong>
           </p>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="teamName">Team Name</Label>
+            <Label htmlFor="teamName" className="dark:text-neutral-200">Team Name</Label>
             <Input
               id="teamName"
               placeholder="eg: Bit Wizards"
@@ -289,7 +273,7 @@ const handleSubmit = async (e) => {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="collegeName">College Name</Label>
+            <Label htmlFor="collegeName" className="dark:text-neutral-200">College Name</Label>
             <Input
               id="collegeName"
               placeholder="eg: Anurag University"
@@ -299,7 +283,7 @@ const handleSubmit = async (e) => {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="stateName">State</Label>
+            <Label htmlFor="stateName" className="dark:text-neutral-200">State</Label>
             <Input
               id="stateName"
               placeholder="eg: Telangana"
@@ -309,7 +293,7 @@ const handleSubmit = async (e) => {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="teamLeader">Team Leader Name</Label>
+            <Label htmlFor="teamLeader" className="dark:text-neutral-200">Team Leader Name</Label>
             <Input
               id="teamLeader"
               placeholder="eg: Tony Stark"
@@ -319,7 +303,7 @@ const handleSubmit = async (e) => {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="teamLeaderEmail">Team Leader Email</Label>
+            <Label htmlFor="teamLeaderEmail" className="dark:text-neutral-200">Team Leader Email</Label>
             <Input
               id="teamLeaderEmail"
               placeholder="eg: 23eg10***@anurag.edu.in"
@@ -329,10 +313,10 @@ const handleSubmit = async (e) => {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="teamSize">Team Size</Label>
+            <Label htmlFor="teamSize" className="dark:text-neutral-200">Team Size</Label>
             <div className="flex space-x-4">
               {["3", "4", "5"].map((size) => (
-                <label key={size}>
+                <label key={size} className="dark:text-neutral-200">
                   {size}
                   <input
                     type="radio"
@@ -348,16 +332,16 @@ const handleSubmit = async (e) => {
           </LabelInputContainer>
         </div>
         {/* Right Section */}
-        <div className="max-w-md w-full mx-auto md:mx-4 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+        <div className="max-w-md w-full mx-auto md:mx-4 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-neutral-900">
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="events">Events</Label>
+            <Label htmlFor="events" className="dark:text-neutral-200">Events</Label>
             <div className="flex flex-wrap gap-4">
               {[
                 { label: "Hackathon", value: "hackathon" },
                 { label: "Design-a-Thon", value: "design-a-thon" },
                 { label: "Project Expo", value: "project expo" },
               ].map((event) => (
-                <label key={event.value}>
+                <label key={event.value} className="dark:text-neutral-200">
                   {event.label}
                   <input
                     type="checkbox"
@@ -371,7 +355,7 @@ const handleSubmit = async (e) => {
             </div>
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="domains">Domains</Label>
+            <Label htmlFor="domains" className="dark:text-neutral-200">Domains</Label>
             <div className="flex space-x-4">
               {[
                 { label: "Web/App", value: "web/app" },
@@ -379,7 +363,7 @@ const handleSubmit = async (e) => {
                 { label: "IOT", value: "iot" },
                 { label: "Blockchain and security", value: "blockchain/security" },
               ].map((domain) => (
-                <label key={domain.value}>
+                <label key={domain.value} className="dark:text-neutral-200">
                   {domain.label}
                   <input
                     type="radio"
@@ -395,8 +379,8 @@ const handleSubmit = async (e) => {
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
             <div className="flex justify-between items-center">
-              <span>Team Members</span>
-              <button className="border-2 border-black px-2 py-1" onClick={openMemberModal}>
+              <span className="dark:text-neutral-200">Team Members</span>
+              <button className="border-2 border-black dark:border-gray-300 px-2 py-1 dark:text-white rounded-md" onClick={openMemberModal}>
                 Add Team Members +
               </button>
             </div>
@@ -404,9 +388,9 @@ const handleSubmit = async (e) => {
           {formData.teamMembers.map((member, index) => (
             <div
               key={index}
-              className="p-2 border mb-2 flex flex-col sm:flex-row justify-between items-center"
+              className="p-2 border mb-2 flex flex-col sm:flex-row justify-between items-center border-gray-300 dark:border-gray-600"
             >
-              <div>
+              <div className="dark:text-neutral-200">
                 <p>
                   <strong>Name:</strong> {member.name}
                 </p>
@@ -441,7 +425,7 @@ const handleSubmit = async (e) => {
             />
           </div>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="utrNumber">UTR Number</Label>
+            <Label htmlFor="utrNumber" className="dark:text-neutral-200">UTR Number</Label>
             <Input
               id="utrNumber"
               placeholder="Transaction Reference Number"
@@ -451,16 +435,16 @@ const handleSubmit = async (e) => {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="screenShot">Upload screenShot</Label>
+            <Label htmlFor="screenShot" className="dark:text-neutral-200">Upload screenShot</Label>
             <Input
               id="screenShot"
               type="file"
               accept="image/*"
               onChange={handleFileUpload}
             />
-            <p className="text-red-700">Note : Image should be in jpg / jpeg format</p>
+            <p className="text-red-700 dark:text-red-400">Note: Image should be in jpg / jpeg format </p>
             {formData.screenShot && (
-              <p className="text-sm text-green-500 mt-1">
+              <p className="text-sm text-green-500 dark:text-green-400 mt-1">
                 File Uploaded: {formData.screenShot.name}
               </p>
             )}
@@ -468,7 +452,7 @@ const handleSubmit = async (e) => {
           {/* Display Total Fee if any event is selected */}
           {formData.events.length > 0 && (
             <div className="mb-4">
-              <p className="text-xl font-semibold">
+              <p className="text-xl font-semibold dark:text-neutral-100">
                 Total Fee: Rs. {computeTotalFee()}
               </p>
             </div>
@@ -476,7 +460,7 @@ const handleSubmit = async (e) => {
           <button
             className={`bg-gradient-to-br relative group/btn block w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] ${
               isFormValid() && !isLoading
-                ? "from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600"
+                ? "from-black dark:from-gray-900 dark:to-gray-900 to-neutral-600"
                 : "opacity-50 cursor-not-allowed from-gray-500 to-gray-500"
             }`}
             type="submit"
@@ -502,10 +486,10 @@ const handleSubmit = async (e) => {
       {/* Team Member Modal */}
       {isMemberModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white p-4 rounded-lg w-full max-w-sm">
+          <div className="bg-white dark:bg-neutral-900 p-4 rounded-lg w-full max-w-sm">
             <form onSubmit={saveMemberDetails}>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="name">Name 🧑‍🤝‍🧑</Label>
+                <Label htmlFor="name" className="dark:text-neutral-200">Name 🧑‍🤝‍🧑</Label>
                 <Input
                   id="name"
                   value={memberDetails.name}
@@ -515,10 +499,10 @@ const handleSubmit = async (e) => {
                 />
               </LabelInputContainer>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="year">Year</Label>
+                <Label htmlFor="year" className="dark:text-neutral-200">Year</Label>
                 <div className="flex space-x-4">
                   {[1, 2, 3, 4].map((yr) => (
-                    <label key={yr}>
+                    <label key={yr} className="dark:text-neutral-200">
                       {yr}
                       <input
                         type="radio"
@@ -532,7 +516,7 @@ const handleSubmit = async (e) => {
                 </div>
               </LabelInputContainer>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone" className="dark:text-neutral-200">Phone Number</Label>
                 <Input
                   id="phone"
                   value={memberDetails.phone}
@@ -542,7 +526,7 @@ const handleSubmit = async (e) => {
                 />
               </LabelInputContainer>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="dark:text-neutral-200">Email</Label>
                 <Input
                   id="email"
                   value={memberDetails.email}
@@ -552,7 +536,7 @@ const handleSubmit = async (e) => {
                 />
               </LabelInputContainer>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="membershipID">CSI Membership Id</Label>
+                <Label htmlFor="membershipID" className="dark:text-neutral-200">CSI Membership Id</Label>
                 <Input
                   id="membershipID"
                   value={memberDetails.membershipID}
@@ -561,7 +545,7 @@ const handleSubmit = async (e) => {
                 />
               </LabelInputContainer>
               <div className="flex justify-end mt-4">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-md" type="submit">
+                <button className="bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 rounded-md" type="submit">
                   Save
                 </button>
               </div>

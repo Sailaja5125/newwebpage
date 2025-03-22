@@ -1,13 +1,17 @@
 'use client'
 import React from 'react'
+import AnimatedTitle from './sub/AnimatedTitle';
 
 function Sponsors() {
   return (
     <div className='bg-neutral-900 w-screen h-auto flex flex-col items-center gap-8 py-8'>
-      <h1 className='text-4xl sm:text-6xl text-center text-white font-circular-web mt-6 p-5'>
+      {/* <h1 className='text-4xl sm:text-6xl text-center text-white font-circular-web mt-6 p-5'>
         Official Sponsors
-      </h1>
-      
+      </h1> */}
+      <AnimatedTitle 
+      title="Sp<b>o</b>ns<b>o</b>rs"
+      containerClass="mt-5 !text-white text-center"
+      />
       <h1 className='text-xl sm:text-2xl text-orange-400 font-bold'>
         Golden Sponsors
       </h1>

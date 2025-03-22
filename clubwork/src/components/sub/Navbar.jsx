@@ -4,29 +4,36 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { useWindowScroll } from 'react-use';
 import { TiLocationArrow } from 'react-icons/ti';
-
-const navItems = ['Domains', 'register'];
+import { useRouter } from 'next/navigation';
 
 const NavBar = () => {
   const navContainerRef = useRef(null);
   const { y: currentScrollY } = useWindowScroll();
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-
+  const router = useRouter();
+  
+  const navitems = ["Domains" , "Register"]
   // Show/hide navbar on scroll
   useEffect(() => {
     if (currentScrollY === 0) {
       // Topmost position: show navbar without floating-nav
       setIsNavVisible(true);
-      navContainerRef.current.classList.remove('floating-nav');
+      if (navContainerRef.current) {
+        navContainerRef.current.classList.remove('floating-nav');
+      }
     } else if (currentScrollY > lastScrollY) {
       // Scrolling down: hide navbar and apply floating-nav
       setIsNavVisible(false);
-      navContainerRef.current.classList.add('floating-nav');
+      if (navContainerRef.current) {
+        navContainerRef.current.classList.add('floating-nav');
+      }
     } else if (currentScrollY < lastScrollY) {
       // Scrolling up: show navbar with floating-nav
       setIsNavVisible(true);
-      navContainerRef.current.classList.add('floating-nav');
+      if (navContainerRef.current) {
+        navContainerRef.current.classList.add('floating-nav');
+      }
     }
 
     setLastScrollY(currentScrollY);
@@ -34,11 +41,13 @@ const NavBar = () => {
 
   // Animate navbar visibility
   useEffect(() => {
-    gsap.to(navContainerRef.current, {
-      y: isNavVisible ? 0 : -100,
-      opacity: isNavVisible ? 1 : 0,
-      duration: 0.2,
-    });
+    if (navContainerRef.current) {
+      gsap.to(navContainerRef.current, {
+        y: isNavVisible ? 0 : -100,
+        opacity: isNavVisible ? 1 : 0,
+        duration: 0.2,
+      });
+    }
   }, [isNavVisible]);
 
   return (
@@ -55,17 +64,14 @@ const NavBar = () => {
           </div>
 
           {/* Navigation Links and Audio Button */}
-          <div className="flex h-full items-center">
-            <div className="hidden md:block">
-              {navItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={`/${item.toLowerCase()}`}
-                  className="nav-hover-btn"
-                >
-                  {item}
+          <div className="flex h-full items-center gap-5">
+            <div className='hidden md:block'>
+                <a className='nav-hover-btn' href='/domains'>
+                  Domains
                 </a>
-              ))}
+                <a className='nav-hover-btn' href='/register'>
+                  Register
+                </a>
             </div>
           </div>
         </nav>

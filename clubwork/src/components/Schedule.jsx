@@ -4,7 +4,7 @@ import { TimelineDemo } from './sub/TimelineDemo'
 
 function Schedule() {
   return (
-    <div className='bg-neutral-900 w-screen'>
+    <div className='bg-neutral-900 w-screen dark:bg-neutral-900'>
    <TimelineDemo/>     
     </div>
   )

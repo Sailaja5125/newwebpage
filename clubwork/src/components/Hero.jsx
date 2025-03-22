@@ -21,13 +21,13 @@ export default function Hero() {
       />
 
       {/* For mobile devices: both texts centered */}
-      <div className="flex flex-col items-center justify-center absolute inset-0 z-50 lg:hidden">
+      <div className="flex flex-col items-center justify-center absolute inset-0 z-40 lg:hidden">
         <h1 className="text-blue-75 hero-heading mb-4">Avensis</h1>
         <h1 className="text-blue-75 hero-heading1 text-center">Regional Convention 2025</h1>
       </div>
 
       {/* For large devices: Avensis at top left and Regional Convention 2025 at bottom right */}
-      <div className="hidden lg:block absolute inset-0 z-50">
+      <div className="hidden lg:block absolute inset-0 z-40">
         <h1 className="absolute top-20 left-2 text-blue-75 hero-heading">
           Avensis
         </h1>

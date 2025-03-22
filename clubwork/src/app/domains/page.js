@@ -4,7 +4,7 @@ import Card from "../../components/sub/DomainCard";
 
 function Page() {
   return (
-    <div className="bg-neutral-900 min-h-screen w-full">
+    <div className="bg-neutral-900 min-h-screen w-full mt-0 mb-0">
       <div className="max-w-7xl mx-auto">
         {/* Hackathon Domains Section */}
         <section className="p-6 m-4">

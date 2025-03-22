@@ -5,7 +5,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-900 text-white pt-12 pb-8">
+    <footer className="bg-neutral-900 text-white pt-12 pb-8 ">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
           {/* About Section */}
@@ -26,7 +26,7 @@ const Footer = () => {
                 <Instagram size={24} />
               </a>
               <a 
-                href="https://www.linkedin.com/company/computer-society-of-india-hyderabad-chapter/" 
+                href="https://www.linkedin.com/company/csichapter-au/posts/?feedView=all" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-white hover:text-blue-700 transition-colors"

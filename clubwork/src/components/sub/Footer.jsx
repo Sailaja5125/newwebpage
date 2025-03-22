@@ -17,19 +17,19 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4 mt-4">
               <a 
-                href="https://instagram.com/studentconvention" 
+                href="https://www.instagram.com/csichapter_au?igsh=c2l5N3Qzc3MwdDJi" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white hover:text-pink-500 transition-colors"
+                className="text-white hover:text-purple-500 transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram size={24} />
               </a>
               <a 
-                href="https://linkedin.com/company/studentconvention" 
+                href="https://www.linkedin.com/company/computer-society-of-india-hyderabad-chapter/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-white hover:text-blue-500 transition-colors"
+                className="text-white hover:text-blue-700 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin size={24} />
@@ -43,12 +43,12 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <MapPin className="mr-2 h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-400">Anurag University, Hyderabad, Telangana</span>
+                <span className="text-gray-400">Anurag University</span>
               </li>
               <li className="flex items-center">
                 <Phone className="mr-2 h-5 w-5 text-gray-400 flex-shrink-0" />
-                <a href="tel:+919876543210" className="text-gray-400 hover:text-white transition-colors">
-                  +91 987 654 3210
+                <a href="tel:+916302259493" className="text-gray-400 hover:text-white transition-colors">
+                  +91 6302259493
                 </a>
               </li>
               <li className="flex items-center">
@@ -63,7 +63,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="pt-8 mt-8 border-t border-neutral-800 text-center text-gray-500 text-sm">
-          <p>© {currentYear} Student Convention. All rights reserved.</p>
+          <p>© {currentYear} Avensis Regional Convention. All rights reserved.</p>
           <div className="mt-2">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <span className="mx-2">|</span>

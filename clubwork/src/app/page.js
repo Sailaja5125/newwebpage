@@ -14,7 +14,7 @@ export default function Home() {
     <Hero/>
     <Events/>
     <Schedule/>
-    <Sponsors/>
+    {/* <Sponsors/> */}
     <Dignitaries/>
     <FAQAccordion/>
     <Footer/>

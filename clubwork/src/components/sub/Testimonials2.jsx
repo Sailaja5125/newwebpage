@@ -26,7 +26,7 @@ const committeeMembers = [
   {
     category: "Chief Patrons",
     name: "Mrs.S.Neelima",
-    title: "CEO,Anurag University"
+    title: "CEO, Anurag University"
   },
   {
     category: "Patrons",
@@ -60,7 +60,7 @@ const committeeMembers = [
   },
   {
     category: "Advisory Committee",
-    name: "Dr. Muktha Reddy",
+    name: "Dr. Mutha Reddy",
     title: "Professor & Dean,Examination Anurag University"
   },
   {
@@ -70,7 +70,7 @@ const committeeMembers = [
   },
   {
     category: "Organizing Chairs",
-    name: "Mrs. Amitha Mishra",
+    name: "Mrs. Amita Mishra",
     title: "Assistant Professor,CSE AU"
   },
   {
@@ -85,7 +85,7 @@ const committeeMembers = [
   },
   {
     category: "Organizing Chairs",
-    name: "Mrs.Meghana",
+    name: "Mrs P.Meghana",
     title: "Assistant Professor,IT,AU"
   },
   {

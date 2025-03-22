@@ -27,7 +27,7 @@ const Cards = ({text , text1}) => {
                 <span /><span /><span /><span />
               </div>
               <p id="prompt" onClick={handleClick}>{text}</p>
-              <div className="title">{text1}</div>
+              <div className="title" >{text1}</div>
               <div className="glowing-elements">
                 <div className="glow-1" />
                 <div className="glow-2" />

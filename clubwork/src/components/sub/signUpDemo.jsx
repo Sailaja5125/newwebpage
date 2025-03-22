@@ -249,8 +249,8 @@ export function SignupFormDemo() {
             🚀 Be part of <strong>Avensis 2025</strong>, where innovation meets creativity!
             Secure your spot now and compete in the Hackathon, Design-a-Thon, or showcase your project at the Expo! 💡 <br />
             Registration Fees: <br />
-            🔹 Hackathon – Rs.700 per person (Rs.300 for members) <br />
-            🔹 Design-a-Thon – Rs.700 per person (Rs.300 for members) <br />
+            🔹 Hackathon – Rs.700 per person (Rs.500 for CSI members) <br />
+            🔹 Design-a-Thon – Rs.700 per person (Rs.500 for CSI members) <br />
             🔹 Project Expo – Rs.300 per Team <br />
             <strong className="text-red-700 
             dark:text-red-400">
@@ -266,7 +266,7 @@ export function SignupFormDemo() {
             <Label htmlFor="teamName" className="dark:text-neutral-200">Team Name</Label>
             <Input
               id="teamName"
-              placeholder="eg: Bit Wizards"
+              placeholder="eg: Team XYZ"
               type="text"
               value={formData.teamName}
               onChange={handleInputChange}
@@ -306,7 +306,7 @@ export function SignupFormDemo() {
             <Label htmlFor="teamLeaderEmail" className="dark:text-neutral-200">Team Leader Email</Label>
             <Input
               id="teamLeaderEmail"
-              placeholder="eg: 23eg10***@anurag.edu.in"
+              placeholder="eg: 23eg105h51@anurag.edu.in"
               type="email"
               value={formData.teamLeaderEmail}
               onChange={handleInputChange}
@@ -480,7 +480,7 @@ export function SignupFormDemo() {
           >
             ✕
           </button>
-          <img src="/img/scanner.jpg" alt="scanner" className="w-full max-w-md h-auto" />
+          <img src="/img/scanner1.jpg" alt="scanner" className="w-full max-w-md h-auto" />
         </div>
       )}
       {/* Team Member Modal */}

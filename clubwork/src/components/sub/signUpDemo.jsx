@@ -462,6 +462,7 @@ export function SignupFormDemo() {
                 Add Team Members +
               </button>
             </div>
+            <p className="text-red-700 dark:text-red-400">Note : Add Team Leader details with Members details</p>
           </LabelInputContainer>
           {formData.teamMembers.map((member, index) => (
             <div

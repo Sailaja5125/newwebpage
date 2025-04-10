@@ -95,10 +95,10 @@ const defaultFaqs = [
         question: "Do I need to know coding to participate in Design-a-thon?",
         answer: "No! The Design-a-thon focuses on creativity, problem-solving, and design thinking, not coding."
       },
-      {
-        question: "Can I exhibit a team project at the Project Expo?",
-        answer: "Yes! Team-based projects are encouraged, if they align with the theme and guidelines."
-      },
+      // {
+      //   question: "Can I exhibit a team project at the Project Expo?",
+      //   answer: "Yes! Team-based projects are encouraged, if they align with the theme and guidelines."
+      // },
       {
         question: "Will there be prizes or recognition?",
         answer: "Yes, standout projects will be recognized and awarded by a panel of experts."

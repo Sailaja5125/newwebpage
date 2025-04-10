@@ -6,7 +6,7 @@ export const InfiniteMovingCards = ({
   items,
   direction = "left",
   speed = "fast",
-  pauseOnHover = true,
+  pauseOnHover = false,
   className
 }) => {
   const containerRef = React.useRef(null);
@@ -48,7 +48,7 @@ export const InfiniteMovingCards = ({
       } else if (speed === "normal") {
         containerRef.current.style.setProperty("--animation-duration", "40s");
       } else if(speed === "slow") {
-        containerRef.current.style.setProperty("--animation-duration", "100s");
+        containerRef.current.style.setProperty("--animation-duration", "500s");
       }
     }
   };

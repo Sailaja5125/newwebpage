@@ -7,11 +7,12 @@ import { useRouter } from "next/navigation";
 function Events() {
   const router = useRouter();
 
-  const handleClick = ()=>{
-   router.push('/register')
-  }
+  const handleClick = () => {
+    router.push('/register');
+  };
+
   return (
-    <div className="min-h-screen w-full flex flex-col items-center sm:p-5">
+    <div className="min-h-screen w-full flex flex-col items-center sm:p-5 bg-neutral-900"> {/* Dark Grayish-Black Background */}
       <AnimatedTitle
         title="Igniting  Inn<b>o</b>vati<b>o</b>n ,<br />p<b>o</b>wering  pr<b>o</b>gress "
         containerClass="mt-5 !text-white text-center"
@@ -20,25 +21,16 @@ function Events() {
         {/* First Card */}
         <div className="w-full sm:w-1/3 h-auto flex items-center mt-9 p-7 flex-col gap-7">
           <Cards text={"HACKATHON"} text1={"INNOVATION"} />
-          <div className="nav-hover-txt ">
-          Code 💻, collaborate 🤝, and innovate 💡! Solve real-world challenges, build cutting-edge solutions, and compete for glory in this intense 24-hour ⌛coding marathon.
+          <div className="nav-hover-txt">
+            Code 💻, collaborate 🤝, and innovate 💡! Solve real-world challenges, build cutting-edge solutions, and compete for glory in this intense 24-hour ⌛coding marathon.
           </div>
           <button className="text-white h-10 w-20 border-2 border-white hover:text-white rounded-md hover:border-none " onClick={handleClick}>Register</button>
         </div>
         {/* Second Card */}
         <div className="w-full sm:w-1/3 h-auto flex items-center mt-9 p-7 flex-col gap-7">
           <Cards text={"DESIGN-A-THON"} text1={"CREATIVITY"} />
-          <div className="nav-hover-txt text-center ">
-          Unleash your creativity 🧠! Craft intuitive user experiences, stunning visuals 🎆, and groundbreaking designs that push the boundaries of innovation 💡.
-          </div>
-          <button className="text-white h-10 w-20 border-2 border-white hover:text-white rounded-md hover:border-none" onClick={handleClick}>Register</button>
-        </div>
-        
-        {/* Third Card */}
-        <div className="w-full sm:w-1/3 h-auto flex items-center mt-9 p-7 flex-col gap-7">
-          <Cards text={"PROJECT EXPO"} text1={"INVENTION"} />
           <div className="nav-hover-txt text-center">
-          Showcase your brilliance ⚙️! Present your innovative projects, cutting-edge research, and tech-driven solutions to industry experts and enthusiasts.
+            Unleash your creativity 🧠! Craft intuitive user experiences, stunning visuals 🎆, and groundbreaking designs that push the boundaries of innovation 💡.
           </div>
           <button className="text-white h-10 w-20 border-2 border-white hover:text-white rounded-md hover:border-none" onClick={handleClick}>Register</button>
         </div>

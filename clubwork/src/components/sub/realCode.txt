@@ -2,15 +2,13 @@
 import React, { useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { cn } from "../../lib/utils";
+import { cn } from "./../../lib/utils";
 
 export function SignupFormDemo() {
   const [formData, setFormData] = useState({
     teamName: "",
     teamLeader: "",
     teamLeaderEmail: "",
-    teamLeaderPhoneNumber: "",
-    accomodation: "",
     teamSize: "",
     events: [],
     domain: "",
@@ -21,6 +19,7 @@ export function SignupFormDemo() {
     screenShot: null,
   });
 
+  // State for team member modal and other UI states
   const [memberDetails, setMemberDetails] = useState({
     name: "",
     year: 1,
@@ -28,66 +27,61 @@ export function SignupFormDemo() {
     email: "",
     membershipID: "NA",
   });
-
   const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isError, setError] = useState(false);
 
-  // --- Handlers for Main Form ---
+  // --- Handlers for main form ---
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
   const handleRadioChange = (e) => {
-    setFormData((prev) => ({ ...prev, teamSize: e.target.value }));
+    setFormData((prevData) => ({ ...prevData, teamSize: e.target.value }));
   };
 
   const handleDomainChange = (e) => {
-    setFormData((prev) => ({ ...prev, domain: e.target.value }));
-  };
-
-  const handleAccomChange = (e) => {
-    setFormData((prev) => ({ ...prev, accomodation: e.target.value }));
+    setFormData((prevData) => ({ ...prevData, domain: e.target.value }));
   };
 
   const handleEventChange = (e) => {
     const { value, checked } = e.target;
-    setFormData((prev) => {
+    setFormData((prevData) => {
       const updatedEvents = checked
-        ? [...prev.events, value]
-        : prev.events.filter((event) => event !== value);
-      return { ...prev, events: updatedEvents };
+        ? [...prevData.events, value]
+        : prevData.events.filter((event) => event !== value);
+      return { ...prevData, events: updatedEvents };
     });
   };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
-    setFormData((prev) => ({ ...prev, screenShot: file }));
+    setFormData((prevData) => ({ ...prevData, screenShot: file }));
   };
 
-  // --- Handlers for Team Member Modal ---
+  // --- Handlers for team member modal ---
   const handleMemberInputChange = (e) => {
     const { id, value } = e.target;
-    setMemberDetails((prev) => ({ ...prev, [id]: value }));
+    setMemberDetails((prevDetails) => ({ ...prevDetails, [id]: value }));
   };
 
   const handleYearChange = (e) => {
-    setMemberDetails((prev) => ({
-      ...prev,
+    setMemberDetails((prevDetails) => ({
+      ...prevDetails,
       year: parseInt(e.target.value, 10),
     }));
   };
 
   const saveMemberDetails = (e) => {
     e.preventDefault();
-    setFormData((prev) => ({
-      ...prev,
-      teamMembers: [...prev.teamMembers, memberDetails],
+    setFormData((prevData) => ({
+      ...prevData,
+      teamMembers: [...prevData.teamMembers, memberDetails],
     }));
-    // Reset member details after saving
+    // Reset to initial member state (using "NA" for membershipID)
     setMemberDetails({
       name: "",
       year: 1,
@@ -99,9 +93,9 @@ export function SignupFormDemo() {
   };
 
   const handleRemoveTeamMember = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      teamMembers: prev.teamMembers.filter((_, i) => i !== index),
+    setFormData((prevData) => ({
+      ...prevData,
+      teamMembers: prevData.teamMembers.filter((_, i) => i !== index),
     }));
   };
 
@@ -121,8 +115,6 @@ export function SignupFormDemo() {
       collegeName,
       teamLeader,
       teamLeaderEmail,
-      teamLeaderPhoneNumber,
-      accomodation,
       teamSize,
       events,
       domain,
@@ -131,18 +123,15 @@ export function SignupFormDemo() {
       screenShot,
       teamMembers,
     } = formData;
-
+    // Prevent selecting Project Expo with other events
     if (events.includes("project expo") && events.length > 1) {
       return false;
     }
-
     if (
       !teamName ||
       !collegeName ||
       !teamLeader ||
       !teamLeaderEmail ||
-      !teamLeaderPhoneNumber ||
-      !accomodation ||
       !stateName ||
       !teamSize ||
       events.length === 0 ||
@@ -152,7 +141,7 @@ export function SignupFormDemo() {
     ) {
       return false;
     }
-
+    // Validate that the number of team members equals teamSize (team leader is not counted)
     return teamMembers.length === parseInt(teamSize, 10);
   };
 
@@ -162,16 +151,17 @@ export function SignupFormDemo() {
     const feeNonMember = 700;
     const feeMember = 500;
 
-    if (
-      formData.events.includes("project expo") &&
-      formData.events.length > 1
-    ) {
+    // Check for invalid selection: Project Expo cannot be selected with any other event
+    if (formData.events.includes("project expo") && formData.events.length > 1) {
       return 0;
     }
 
+    // If only Project Expo is selected, calculate expo fee
     if (formData.events.length === 1 && formData.events[0] === "project expo") {
       total = 300;
-    } else if (
+    }
+    // Otherwise, if Hackathon or Design-a-Thon (or both) are selected, calculate fee per team member
+    else if (
       formData.events.includes("hackathon") ||
       formData.events.includes("design-a-thon")
     ) {
@@ -187,15 +177,144 @@ export function SignupFormDemo() {
     return total;
   };
 
+
+  // start the code for google Sheets 
+  // Add this function to your SignupFormDemo component
+
+// --- Submit handler ---
+const handleSubmitForm = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setError(false);
+  
+  try {
+    // Create FormData object for file upload
+    const data = new FormData();
+    
+    // Add all the text fields
+    data.append("teamName", formData.teamName);
+    data.append("teamLeader", formData.teamLeader);
+    data.append("teamLeaderEmail", formData.teamLeaderEmail);
+    data.append("teamSize", formData.teamSize);
+    data.append("domain", formData.domain);
+    data.append("collegeName", formData.collegeName);
+    data.append("stateName", formData.stateName);
+    data.append("utrNumber", formData.utrNumber);
+    data.append("events", JSON.stringify(formData.events));
+    data.append("teamMembers", JSON.stringify(formData.teamMembers));
+    
+    // If screenshot exists, convert it to base64 for transmission
+    if (formData.screenShot) {
+      const base64Screenshot = await convertFileToBase64(formData.screenShot);
+      data.append("screenShot", base64Screenshot);
+    }
+    
+    // Make API call to the Apps Script URL
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbzAjW5U2WpN8hQcV2ZriCcSw9KCEqF5SrNsg5dixtiUonDIVWafuYJwbiLAW8gr7iOHTw/exec",
+      {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(data)),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    
+    // Check if response is OK
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    // Parse the response
+    const result = await response.json();
+    
+    if (result.status === "success") {
+      setSignupSuccess(true);
+      
+      // Reset form after successful submission
+      setFormData({
+        teamName: "",
+        teamLeader: "",
+        teamLeaderEmail: "",
+        teamSize: "",
+        events: [],
+        domain: "",
+        collegeName: "",
+        stateName: "",
+        teamMembers: [],
+        utrNumber: "",
+        screenShot: null,
+      });
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        setSignupSuccess(false);
+      }, 5000);
+    } else {
+      setError(true);
+      console.error("Registration failed:", result.message);
+    }
+  } catch (error) {
+    setError(true);
+    console.error("Error submitting form:", error);
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+// Helper function to convert File object to base64 string
+const convertFileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // --- Submit handler for database---
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
     setIsLoading(true);
     const data = new FormData();
     data.append("teamName", formData.teamName);
     data.append("teamLeader", formData.teamLeader);
     data.append("teamLeaderEmail", formData.teamLeaderEmail);
-    data.append("teamLeaderPhoneNumber", formData.teamLeaderPhoneNumber);
-    data.append("accommodation", formData.accomodation);
     data.append("teamSize", formData.teamSize);
     data.append("domain", formData.domain);
     data.append("collegeName", formData.collegeName);
@@ -206,28 +325,24 @@ export function SignupFormDemo() {
     if (formData.screenShot) {
       data.append("screenShot", formData.screenShot);
     }
-    console.log(data);
+
     try {
-      const res = await fetch(
-        "https://hackathon-site-backend.onrender.com/api/v1/register",
-        {
-          method: "POST",
-          body: data,
-        }
-      );
+      const res = await fetch("https://hackathon-site-backend.onrender.com/api/v1/register", {
+        method: "POST",
+        body: data,
+      });
 
       if (!res.ok) {
         const errorText = await res.text();
         throw new Error(`HTTP error ${res.status}: ${errorText}`);
       }
       const result = await res.json();
+      console.log(result);
       setSignupSuccess(true);
       setTimeout(() => setSignupSuccess(false), 5000);
-      console.log(result);
     } catch (error) {
       console.error("Error submitting form:", error);
-      setIsError(true);
-      setTimeout(() => setIsError(false), 5000);
+      setError(true);
     } finally {
       setIsLoading(false);
     }
@@ -247,36 +362,37 @@ export function SignupFormDemo() {
           Registration Successful!
         </div>
       )}
-      {/* Error Alert */}
       {isError && (
         <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 dark:bg-red-700 text-white px-6 py-3 rounded-md shadow-lg z-50">
           Registration Unsuccessful – enter correct details!
         </div>
       )}
-      <form
-        onSubmit={handleSubmit}
-        className="w-full flex flex-col md:flex-row gap-4"
-      >
+      <form onSubmit={handleSubmitForm} className="w-full flex flex-col md:flex-row gap-4">
         {/* Left Section */}
         <div className="max-w-md w-full mx-auto md:mx-4 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-neutral-900">
           <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-100">
             Register for AVENSIS 2025
           </h2>
           <p className="text-neutral-600 dark:text-neutral-300 text-sm max-w-sm mt-2 mb-3">
-            🚀 Be part of <strong>Avensis 2025</strong>, where innovation meets
-            creativity! Secure your spot now and compete in the Hackathon,
-            Design-a-Thon<br />
+            <br />
+            🚀 Be part of <strong>Avensis 2025</strong>, where innovation meets creativity!
+            Secure your spot now and compete in the Hackathon, Design-a-Thon, or showcase your project at the Expo! 💡 <br />
             Registration Fees: <br />
             🔹 Hackathon – Rs.700 per person (Rs.500 for CSI members) <br />
             🔹 Design-a-Thon – Rs.700 per person (Rs.500 for CSI members) <br />
-            <strong className="text-red-700 dark:text-red-400">
-              Note: Can participate in any one of the event
+            🔹 Project Expo – Rs.300 per Team <br />
+            <strong className="text-red-700 
+            dark:text-red-400">
+              Note: You can't participate in other events if you are participating in Project Expo
+            </strong>
+            <br />
+            <strong className="text-green-700 
+            dark:text-green-400">
+              🎉Bonus: A team can participate in both Hackathon and Design-a-Thon at same Registration Amount per person
             </strong>
           </p>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="teamName" className="dark:text-neutral-200">
-              Team Name
-            </Label>
+            <Label htmlFor="teamName" className="dark:text-neutral-200">Team Name</Label>
             <Input
               id="teamName"
               placeholder="eg: Team XYZ"
@@ -286,9 +402,7 @@ export function SignupFormDemo() {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="collegeName" className="dark:text-neutral-200">
-              College Name
-            </Label>
+            <Label htmlFor="collegeName" className="dark:text-neutral-200">College Name</Label>
             <Input
               id="collegeName"
               placeholder="eg: Anurag University"
@@ -298,9 +412,7 @@ export function SignupFormDemo() {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="stateName" className="dark:text-neutral-200">
-              State
-            </Label>
+            <Label htmlFor="stateName" className="dark:text-neutral-200">State</Label>
             <Input
               id="stateName"
               placeholder="eg: Telangana"
@@ -310,9 +422,7 @@ export function SignupFormDemo() {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="teamLeader" className="dark:text-neutral-200">
-              Team Leader Name
-            </Label>
+            <Label htmlFor="teamLeader" className="dark:text-neutral-200">Team Leader Name</Label>
             <Input
               id="teamLeader"
               placeholder="eg: Tony Stark"
@@ -322,9 +432,7 @@ export function SignupFormDemo() {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="teamLeaderEmail" className="dark:text-neutral-200">
-              Team Leader Email
-            </Label>
+            <Label htmlFor="teamLeaderEmail" className="dark:text-neutral-200">Team Leader Email</Label>
             <Input
               id="teamLeaderEmail"
               placeholder="eg: 23eg105h51@anurag.edu.in"
@@ -334,24 +442,7 @@ export function SignupFormDemo() {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label
-              htmlFor="teamLeaderPhoneNumber"
-              className="dark:text-neutral-200"
-            >
-              Team Leader Phone Number
-            </Label>
-            <Input
-              id="teamLeaderPhoneNumber"
-              placeholder="eg: +91 6302xxxxxx"
-              type="tel"
-              value={formData.teamLeaderPhoneNumber}
-              onChange={handleInputChange}
-            />
-          </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
-            <Label htmlFor="teamSize" className="dark:text-neutral-200">
-              Team Size
-            </Label>
+            <Label htmlFor="teamSize" className="dark:text-neutral-200">Team Size</Label>
             <div className="flex space-x-4">
               {["3", "4", "5"].map((size) => (
                 <label key={size} className="dark:text-neutral-200">
@@ -371,23 +462,20 @@ export function SignupFormDemo() {
         </div>
         {/* Right Section */}
         <div className="max-w-md w-full mx-auto md:mx-4 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-neutral-900">
-          {/* Events and Domain */}
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="events" className="dark:text-neutral-200">
-              Events
-            </Label>
+            <Label htmlFor="events" className="dark:text-neutral-200">Events</Label>
             <div className="flex flex-wrap gap-4">
               {[
                 { label: "Hackathon", value: "hackathon" },
                 { label: "Design-a-Thon", value: "design-a-thon" },
+                { label: "Project Expo", value: "project expo" },
               ].map((event) => (
                 <label key={event.value} className="dark:text-neutral-200">
                   {event.label}
                   <input
-                    type="radio" // Change from checkbox to radio
-                    name="event" // Group all radio buttons together
+                    type="checkbox"
                     value={event.value}
-                    checked={formData.events.includes(event.value)} // Only one event should be selected
+                    checked={formData.events.includes(event.value)}
                     onChange={handleEventChange}
                     className="m-2"
                   />
@@ -396,18 +484,13 @@ export function SignupFormDemo() {
             </div>
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="domains" className="dark:text-neutral-200">
-              Domains
-            </Label>
+            <Label htmlFor="domains" className="dark:text-neutral-200">Domains</Label>
             <div className="flex space-x-4">
               {[
                 { label: "Web/App", value: "web/app" },
                 { label: "AIML", value: "aiml" },
                 { label: "IOT", value: "iot" },
-                {
-                  label: "Blockchain and security",
-                  value: "blockchain/security",
-                },
+                { label: "Blockchain and security", value: "blockchain/security" },
               ].map((domain) => (
                 <label key={domain.value} className="dark:text-neutral-200">
                   {domain.label}
@@ -424,38 +507,9 @@ export function SignupFormDemo() {
             </div>
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="accomodation" className="dark:text-neutral-200">
-              Accommodation
-            </Label>
-            <div className="flex space-x-4">
-              {[
-                { label: "Yes", value: "Yes" },
-                { label: "No", value: "No" },
-              ].map((accomodation) => (
-                <label
-                  key={accomodation.value}
-                  className="dark:text-neutral-200"
-                >
-                  {accomodation.label}
-                  <input
-                    type="radio"
-                    value={accomodation.value}
-                    name="accomodation"
-                    checked={formData.accomodation === accomodation.value}
-                    onChange={handleAccomChange}
-                    className="m-2"
-                  />
-                </label>
-              ))}
-            </div>
-          </LabelInputContainer>
-          <LabelInputContainer className="mb-4">
             <div className="flex justify-between items-center">
               <span className="dark:text-neutral-200">Team Members</span>
-              <button
-                className="border-2 border-black dark:border-gray-300 px-2 py-1 dark:text-white rounded-md"
-                onClick={openMemberModal}
-              >
+              <button className="border-2 border-black dark:border-gray-300 px-2 py-1 dark:text-white rounded-md" onClick={openMemberModal}>
                 Add Team Members +
               </button>
             </div>
@@ -490,7 +544,7 @@ export function SignupFormDemo() {
               </button>
             </div>
           ))}
-          {/* Scanner Icon */}
+          {/* Scanner */}
           <div className="w-full flex justify-center">
             <img
               src="/img/qr-codeicon.png"
@@ -500,9 +554,7 @@ export function SignupFormDemo() {
             />
           </div>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="utrNumber" className="dark:text-neutral-200">
-              UTR Number
-            </Label>
+            <Label htmlFor="utrNumber" className="dark:text-neutral-200">UTR Number</Label>
             <Input
               id="utrNumber"
               placeholder="Transaction Reference Number"
@@ -512,24 +564,21 @@ export function SignupFormDemo() {
             />
           </LabelInputContainer>
           <LabelInputContainer className="mb-4">
-            <Label htmlFor="screenShot" className="dark:text-neutral-200">
-              Upload Screenshot
-            </Label>
+            <Label htmlFor="screenShot" className="dark:text-neutral-200">Upload screenShot</Label>
             <Input
               id="screenShot"
               type="file"
               accept="image/*"
               onChange={handleFileUpload}
             />
-            <p className="text-red-700 dark:text-red-400">
-              Note: Image should be in jpg / jpeg format
-            </p>
+            <p className="text-red-700 dark:text-red-400">Note: Image should be in jpg / jpeg format </p>
             {formData.screenShot && (
               <p className="text-sm text-green-500 dark:text-green-400 mt-1">
                 File Uploaded: {formData.screenShot.name}
               </p>
             )}
           </LabelInputContainer>
+          {/* Display Total Fee if any event is selected */}
           {formData.events.length > 0 && (
             <div className="mb-4">
               <p className="text-xl font-semibold dark:text-neutral-100">
@@ -560,11 +609,7 @@ export function SignupFormDemo() {
           >
             ✕
           </button>
-          <img
-            src="/img/scanner23.jpg"
-            alt="scanner"
-            className="w-full max-w-md h-auto"
-          />
+          <img src="/img/scanner1.jpg" alt="scanner" className="w-full max-w-md h-auto" />
         </div>
       )}
       {/* Team Member Modal */}
@@ -573,9 +618,7 @@ export function SignupFormDemo() {
           <div className="bg-white dark:bg-neutral-900 p-4 rounded-lg w-full max-w-sm">
             <form onSubmit={saveMemberDetails}>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="name" className="dark:text-neutral-200">
-                  Name 🧑‍🤝‍🧑
-                </Label>
+                <Label htmlFor="name" className="dark:text-neutral-200">Name 🧑‍🤝‍🧑</Label>
                 <Input
                   id="name"
                   value={memberDetails.name}
@@ -585,9 +628,7 @@ export function SignupFormDemo() {
                 />
               </LabelInputContainer>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="year" className="dark:text-neutral-200">
-                  Year
-                </Label>
+                <Label htmlFor="year" className="dark:text-neutral-200">Year</Label>
                 <div className="flex space-x-4">
                   {[1, 2, 3, 4].map((yr) => (
                     <label key={yr} className="dark:text-neutral-200">
@@ -604,9 +645,7 @@ export function SignupFormDemo() {
                 </div>
               </LabelInputContainer>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="phone" className="dark:text-neutral-200">
-                  Phone Number
-                </Label>
+                <Label htmlFor="phone" className="dark:text-neutral-200">Phone Number</Label>
                 <Input
                   id="phone"
                   value={memberDetails.phone}
@@ -616,9 +655,7 @@ export function SignupFormDemo() {
                 />
               </LabelInputContainer>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="email" className="dark:text-neutral-200">
-                  Email
-                </Label>
+                <Label htmlFor="email" className="dark:text-neutral-200">Email</Label>
                 <Input
                   id="email"
                   value={memberDetails.email}
@@ -628,9 +665,7 @@ export function SignupFormDemo() {
                 />
               </LabelInputContainer>
               <LabelInputContainer className="mb-4">
-                <Label htmlFor="membershipID" className="dark:text-neutral-200">
-                  CSI Membership Id
-                </Label>
+                <Label htmlFor="membershipID" className="dark:text-neutral-200">CSI Membership Id</Label>
                 <Input
                   id="membershipID"
                   value={memberDetails.membershipID}
@@ -639,10 +674,7 @@ export function SignupFormDemo() {
                 />
               </LabelInputContainer>
               <div className="flex justify-end mt-4">
-                <button
-                  className="bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 rounded-md"
-                  type="submit"
-                >
+                <button className="bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 rounded-md" type="submit">
                   Save
                 </button>
               </div>
@@ -654,17 +686,15 @@ export function SignupFormDemo() {
   );
 }
 
-const BottomGradient = () => (
-  <>
-    <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-    <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-  </>
-);
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+      <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+    </>
+  );
+};
 
 const LabelInputContainer = ({ children, className }) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn("flex flex-col space-y-2 w-full", className)}>{children}</div>;
 };

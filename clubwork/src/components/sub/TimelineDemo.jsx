@@ -10,19 +10,19 @@ export function TimelineDemo() {
         <div>
           <div className="mb-8">
             <div
-              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm nav-hover-txt1   ">
               ✅ Tech Talks
             </div>
             <div
-              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm nav-hover-txt1   ">
               ✅ Hacking hours
             </div>
             <div
-              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm nav-hover-txt1   ">
               ✅ Culturals
             </div>
             <div
-              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm nav-hover-txt1   ">
               ✅ Midnight Activities
             </div>
           
@@ -62,15 +62,15 @@ export function TimelineDemo() {
         <div>
     <div className="mb-8">
             <div
-              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm nav-hover-txt1  ">
               ✅ Yoga Session
             </div>
             <div
-              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm nav-hover-txt1   ">
               ✅ Project Expo
             </div>
             <div
-              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm">
+              className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm nav-hover-txt1  ">
               ✅ Valedictory
             </div>
           </div>

@@ -571,7 +571,7 @@ export function SignupFormDemo() {
         </div>
       )}
       {/* Team Member Modal */}
-      {isMemberModalOpen && (
+  {isMemberModalOpen && (
   <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
     <div className="bg-white dark:bg-neutral-900 p-4 rounded-lg w-full max-w-sm relative">
       {/* Close Button */}

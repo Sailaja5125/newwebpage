@@ -40,6 +40,9 @@ export function SignupFormDemo() {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
+  const closeModal = () => {
+    setIsMemberModalOpen(false); // Sets the state to false to close the modal
+  };
 
   const handleRadioChange = (e) => {
     setFormData((prev) => ({ ...prev, teamSize: e.target.value }));
@@ -342,7 +345,7 @@ export function SignupFormDemo() {
             </Label>
             <Input
               id="teamLeaderPhoneNumber"
-              placeholder="eg: +91 6302xxxxxx"
+              placeholder="eg: 6302xxxxxx"
               type="tel"
               value={formData.teamLeaderPhoneNumber}
               onChange={handleInputChange}
@@ -569,87 +572,95 @@ export function SignupFormDemo() {
       )}
       {/* Team Member Modal */}
       {isMemberModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-neutral-900 p-4 rounded-lg w-full max-w-sm">
-            <form onSubmit={saveMemberDetails}>
-              <LabelInputContainer className="mb-4">
-                <Label htmlFor="name" className="dark:text-neutral-200">
-                  Name 🧑‍🤝‍🧑
-                </Label>
-                <Input
-                  id="name"
-                  value={memberDetails.name}
-                  onChange={handleMemberInputChange}
-                  placeholder="eg: Bruce Wayne"
-                  type="text"
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+    <div className="bg-white dark:bg-neutral-900 p-4 rounded-lg w-full max-w-sm relative">
+      {/* Close Button */}
+      <button
+        onClick={closeModal}
+        className="absolute top-2 right-2 bg-transparent text-neutral-700 dark:text-neutral-200 hover:text-red-600 text-3xl"
+      >
+        &times; {/* Represents the X */}
+      </button>
+      
+      <form onSubmit={saveMemberDetails}>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="name" className="dark:text-neutral-200">
+            Name 🧑‍🤝‍🧑
+          </Label>
+          <Input
+            id="name"
+            value={memberDetails.name}
+            onChange={handleMemberInputChange}
+            placeholder="eg: Bruce Wayne"
+            type="text"
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="year" className="dark:text-neutral-200">
+            Year
+          </Label>
+          <div className="flex space-x-4">
+            {[1, 2, 3, 4].map((yr) => (
+              <label key={yr} className="dark:text-neutral-200">
+                {yr}
+                <input
+                  type="radio"
+                  value={yr}
+                  checked={memberDetails.year === yr}
+                  onChange={handleYearChange}
+                  className="m-2"
                 />
-              </LabelInputContainer>
-              <LabelInputContainer className="mb-4">
-                <Label htmlFor="year" className="dark:text-neutral-200">
-                  Year
-                </Label>
-                <div className="flex space-x-4">
-                  {[1, 2, 3, 4].map((yr) => (
-                    <label key={yr} className="dark:text-neutral-200">
-                      {yr}
-                      <input
-                        type="radio"
-                        value={yr}
-                        checked={memberDetails.year === yr}
-                        onChange={handleYearChange}
-                        className="m-2"
-                      />
-                    </label>
-                  ))}
-                </div>
-              </LabelInputContainer>
-              <LabelInputContainer className="mb-4">
-                <Label htmlFor="phone" className="dark:text-neutral-200">
-                  Phone Number
-                </Label>
-                <Input
-                  id="phone"
-                  value={memberDetails.phone}
-                  onChange={handleMemberInputChange}
-                  placeholder="eg: +91 98765xxxxx"
-                  type="tel"
-                />
-              </LabelInputContainer>
-              <LabelInputContainer className="mb-4">
-                <Label htmlFor="email" className="dark:text-neutral-200">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  value={memberDetails.email}
-                  onChange={handleMemberInputChange}
-                  placeholder="eg: xyz@gmail.com"
-                  type="email"
-                />
-              </LabelInputContainer>
-              <LabelInputContainer className="mb-4">
-                <Label htmlFor="membershipID" className="dark:text-neutral-200">
-                  CSI Membership Id
-                </Label>
-                <Input
-                  id="membershipID"
-                  value={memberDetails.membershipID}
-                  onChange={handleMemberInputChange}
-                  type="text"
-                />
-              </LabelInputContainer>
-              <div className="flex justify-end mt-4">
-                <button
-                  className="bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 rounded-md"
-                  type="submit"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
+              </label>
+            ))}
           </div>
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="phone" className="dark:text-neutral-200">
+            Phone Number
+          </Label>
+          <Input
+            id="phone"
+            value={memberDetails.phone}
+            onChange={handleMemberInputChange}
+            placeholder="eg: +91 98765xxxxx"
+            type="tel"
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="email" className="dark:text-neutral-200">
+            Email
+          </Label>
+          <Input
+            id="email"
+            value={memberDetails.email}
+            onChange={handleMemberInputChange}
+            placeholder="eg: xyz@gmail.com"
+            type="email"
+          />
+        </LabelInputContainer>
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="membershipID" className="dark:text-neutral-200">
+            CSI Membership Id
+          </Label>
+          <Input
+            id="membershipID"
+            value={memberDetails.membershipID}
+            onChange={handleMemberInputChange}
+            type="text"
+          />
+        </LabelInputContainer>
+        <div className="flex justify-end mt-4">
+          <button
+            className="bg-blue-500 dark:bg-blue-600 text-white px-4 py-2 rounded-md"
+            type="submit"
+          >
+            Save
+          </button>
         </div>
-      )}
+      </form>
+    </div>
+  </div>
+)}
     </div>
   );
 }

@@ -622,7 +622,7 @@ export function SignupFormDemo() {
             id="phone"
             value={memberDetails.phone}
             onChange={handleMemberInputChange}
-            placeholder="eg: +91 98765xxxxx"
+            placeholder="eg: 98765xxxxx"
             type="tel"
           />
         </LabelInputContainer>

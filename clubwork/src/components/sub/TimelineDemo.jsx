@@ -67,7 +67,7 @@ export function TimelineDemo() {
             </div>
             <div
               className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm nav-hover-txt1   ">
-              ✅ Project Expo
+                
             </div>
             <div
               className="flex gap-2 items-center text-neutral-700 dark:text-neutral-300 text-xs md:text-sm nav-hover-txt1  ">

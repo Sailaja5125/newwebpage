@@ -24,7 +24,7 @@ function Events() {
           <div className="nav-hover-txt">
             Code 💻, collaborate 🤝, and innovate 💡! Solve real-world challenges, build cutting-edge solutions, and compete for glory in this intense 24-hour ⌛coding marathon.
           </div>
-          <button className="text-white h-10 w-20 border-2 border-white hover:text-white rounded-md hover:border-none " onClick={handleClick}>Register</button>
+          <a className="text-white h-10 w-20 border-2 border-white hover:text-white rounded-md hover:border-none flex justify-center items-center" href="https://forms.gle/pwPfdLTuKCBMzkFEA">Register</a>
         </div>
         {/* Second Card */}
         <div className="w-full sm:w-1/3 h-auto flex items-center mt-9 p-7 flex-col gap-7">
@@ -32,7 +32,7 @@ function Events() {
           <div className="nav-hover-txt text-center">
             Unleash your creativity 🧠! Craft intuitive user experiences, stunning visuals 🎆, and groundbreaking designs that push the boundaries of innovation 💡.
           </div>
-          <button className="text-white h-10 w-20 border-2 border-white hover:text-white rounded-md hover:border-none" onClick={handleClick}>Register</button>
+          <a className="text-white h-10 w-20 border-2 border-white hover:text-white rounded-md hover:border-none flex justify-center items-center" href="https://forms.gle/pwPfdLTuKCBMzkFEA" >Register</a>
         </div>
       </div>
     </div>

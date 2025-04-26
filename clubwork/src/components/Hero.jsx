@@ -87,7 +87,6 @@ export default function Hero() {
           </h2>
         </div>
       </div>
-
       {/* Loading state (optional) */}
       {!isVideoReady && (
         <div className="absolute inset-0 flex items-center justify-center bg-black z-50">

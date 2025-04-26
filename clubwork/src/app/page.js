@@ -13,9 +13,9 @@ export default function Home() {
     <div className="bg-neutral-900">
     <Hero/>
     <Events/>
-    <Schedule/>
+    <Schedule/> 
     {/* <Sponsors/> */}
-    <Dignitaries/>
+     <Dignitaries/>
     <FAQAccordion/>
     <Footer/>
     </div>

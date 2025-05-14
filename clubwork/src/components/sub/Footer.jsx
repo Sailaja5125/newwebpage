@@ -63,6 +63,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="pt-8 mt-8 border-t border-neutral-800 text-center text-gray-500 text-sm">
+          <p>Build by @Gojo</p>
           <p>© {currentYear} Avensis Regional Convention. All rights reserved.</p>
           <div className="mt-2">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>

@@ -24,7 +24,7 @@
     align-items: center;
     border-radius: 20px;
     transition: 700ms;
-    background: linear-gradient(45deg, #1a1a1a, #262626);
+    background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.1);
     overflow: hidden;
     box-shadow:
@@ -67,7 +67,7 @@
     font-weight: 800;
     letter-spacing: 4px;
     text-align: center;
-    background: linear-gradient(45deg, #00ffaa, #00a2ff);
+    background-color: white;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -90,7 +90,7 @@
   .highlight {
     color: #00ffaa;
     margin-left: 5px;
-    background: linear-gradient(90deg, #5c67ff, #ad51ff);
+    background: transparent;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

@@ -16,7 +16,7 @@ body {
     font-family: "circular-web";
     src: url("/fonts/circularweb-book.woff2") format("woff2");
   }
-
+  
   @font-face {
     font-family: "general";
     src: url("/fonts/general.woff2") format("woff2");
@@ -35,6 +35,10 @@ body {
   @font-face {
     font-family: "zentry";
     src: url("/fonts/zentry-regular.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: "font-custom";
+    src: url("/fonts/Figtree-Regular.ttf") format("ttf");
   }
 }
 
@@ -309,6 +313,18 @@ body {
   }
 }
 
+/* add at bottom of Hero.css */
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50%    { border-color: white; }
+}
+
+.cursor {
+  display: inline-block;
+  border-right: 2px solid white;
+  animation: blink-caret 0.8s step-end infinite;
+}
 
 
 

@@ -10,14 +10,23 @@ import Footer from "./../components/sub/Footer";
 
 export default function Home() {
   return (
-    <div className="bg-neutral-900">
-    <Hero/>
-    <Events/>
-    <Schedule/> 
-    {/* <Sponsors/> */}
-     <Dignitaries/>
-    <FAQAccordion/>
-    <Footer/>
+    <div className="relative min-h-screen">
+      {/* 1) Background at z-0 */}
+      <img
+        src="/img/pageback1.png"
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-cover z-10"
+      />
+
+      {/* 2) All your components live in a z-10 wrapper */}
+      <div className="relative z-10">
+        <Hero />
+        <Events />
+        <Sponsors />
+        <Dignitaries />
+        <FAQAccordion />
+        <Footer />
+      </div>
     </div>
   );
 }

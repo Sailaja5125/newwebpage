@@ -1,18 +1,15 @@
-'use client'
+"use client";
 import React from "react";
 import AnimatedTitle from "./sub/AnimatedTitle";
 import Cards from "./sub/Cards";
-import { useRouter } from "next/navigation";
+
 
 function Events() {
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push('/register');
-  };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center sm:p-5 bg-neutral-900"> {/* Dark Grayish-Black Background */}
+    <div id="Events" className="min-h-screen w-full flex flex-col items-center bg-transparent ">
+      {" "}
+      {/* Dark Grayish-Black Background */}
       <AnimatedTitle
         title="Igniting  Inn<b>o</b>vati<b>o</b>n ,<br />p<b>o</b>wering  pr<b>o</b>gress "
         containerClass="mt-5 !text-white text-center"
@@ -22,17 +19,47 @@ function Events() {
         <div className="w-full sm:w-1/3 h-auto flex items-center mt-9 p-7 flex-col gap-7">
           <Cards text={"HACKATHON"} text1={"INNOVATION"} />
           <div className="nav-hover-txt">
-            Code 💻, collaborate 🤝, and innovate 💡! Solve real-world challenges, build cutting-edge solutions, and compete for glory in this intense 24-hour ⌛coding marathon.
+            Code 💻, collaborate 🤝, and innovate 💡! Solve real-world
+            challenges, build cutting-edge solutions, and compete for glory in
+            this intense 24-hour ⌛coding marathon.
           </div>
-          <a className="text-white h-10 w-20 border-2 border-white hover:text-white rounded-md hover:border-none flex justify-center items-center" href="https://forms.gle/pwPfdLTuKCBMzkFEA">Register</a>
+          <div className="flex gap-5">
+          <a
+            className="text-white h-10 w-20 border-2 border-white rounded-md hover:border-none hover:bg-white hover:text-black flex justify-center items-center"
+            href="/details/hackathon"
+          >
+            Info
+          </a>
+          <a
+            className="text-white h-10 w-20 border-2 border-white rounded-md hover:border-none hover:bg-white hover:text-black flex justify-center items-center"
+            href="https://forms.gle/pwPfdLTuKCBMzkFEA"
+          >
+            Register
+          </a>
+          </div>
         </div>
         {/* Second Card */}
         <div className="w-full sm:w-1/3 h-auto flex items-center mt-9 p-7 flex-col gap-7">
           <Cards text={"DESIGN-A-THON"} text1={"CREATIVITY"} />
           <div className="nav-hover-txt text-center">
-            Unleash your creativity 🧠! Craft intuitive user experiences, stunning visuals 🎆, and groundbreaking designs that push the boundaries of innovation 💡.
+            Unleash your creativity 🧠! Craft intuitive user experiences,
+            stunning visuals 🎆, and groundbreaking designs that push the
+            boundaries of innovation 💡.
           </div>
-          <a className="text-white h-10 w-20 border-2 border-white hover:text-white rounded-md hover:border-none flex justify-center items-center" href="https://forms.gle/pwPfdLTuKCBMzkFEA" >Register</a>
+          <div className="flex gap-5 ">
+          <a
+            className="text-white h-10 w-20 border-2 border-white rounded-md hover:border-none hover:bg-white hover:text-black flex justify-center items-center"
+            href="/details/design-a-thon"
+          >
+            Info
+          </a>
+          <a
+            className="text-white h-10 w-20 border-2 border-white rounded-md hover:border-none hover:bg-white hover:text-black flex justify-center items-center"
+            href="https://forms.gle/pwPfdLTuKCBMzkFEA"
+          >
+            Register
+          </a>
+          </div>
         </div>
       </div>
     </div>

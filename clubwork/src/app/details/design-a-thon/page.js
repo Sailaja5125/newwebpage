@@ -1,11 +1,12 @@
 "use client"
 import React from 'react'
 import Card from '../../../components/sub/DomainCard'
+import { ShootingStarsAndStarsBackgroundDemo } from '@/components/sub/ShootingStarsAndStarsBackgroundDemo'
 
 function page() {
   return (
     <div className='bg-neutral-900 min-h-screen w-screen'>
-      <div >
+      <div>
         <h1 className='text-5xl font-zentry font-bold text-white p-6 m-4'>Domains</h1>
         
         {/* Web/app */}

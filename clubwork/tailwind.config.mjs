@@ -16,6 +16,7 @@ export default {
         "circular-web": ["circular-web", "sans-serif"],
         "robert-medium": ["robert-medium", "sans-serif"],
         "robert-regular": ["robert-regular", "sans-serif"],
+        "font-custom":["Figtree-Regular","sans-serif"]
       },
       animation: {
         fadeIn: "fadeIn 0.3s ease-in-out",
@@ -36,12 +37,14 @@ export default {
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
       colors: {
+        
         blue: {
           50: "#DFDFF0",
           75: "#dfdff2",
           100: "#F0F2FA",
           200: "#010101",
           300: "#4FB7DD",
+          500: "#12142B",
         },
         violet: {
           300: "#5724ff",
@@ -53,7 +56,8 @@ export default {
       },
     },
   },
-  plugins: [addVariablesForColors],
+  plugins: [addVariablesForColors , require('@tailwindcss/aspect-ratio'), // Add this line
+],
 };
 function addVariablesForColors({ addBase, theme }) {
   let allColors = flattenColorPalette(theme("colors"));

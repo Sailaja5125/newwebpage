@@ -12,17 +12,17 @@ const FAQAccordion = ({ faqs = defaultFaqs, title = "Frequently Asked Questions"
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-neutral-900 rounded-lg shadow text-white ">
+    <div className="w-full max-w-2xl mx-auto bg-transparent rounded-lg shadow text-white ">
       <div className="px-4 py-5 sm:px-6">
         <h2 className="text-2xl font-bold text-white">{title}</h2>
         <p className="mt-1 text-sm text-gray-400">{subtitle}</p>
       </div>
       
-      <div className="border-t border-neutral-700">
+      <div className="border-t bg-transparent">
         {faqs.map((item, index) => (
-          <div key={index} className="border-b border-neutral-700 last:border-b-0">
+          <div key={index} className="border-b bg-transparent last:border-b-0">
             <button
-              className="flex justify-between items-center w-full px-4 py-5 sm:px-6 text-left hover:bg-neutral-800 transition-colors"
+              className="flex justify-between items-center w-full px-4 py-5 sm:px-6 text-left hover:bg-transparent transition-colors"
               onClick={() => toggleAccordion(index)}
               aria-expanded={openIndex === index}
               aria-controls={`faq-answer-${index}`}
@@ -37,7 +37,7 @@ const FAQAccordion = ({ faqs = defaultFaqs, title = "Frequently Asked Questions"
             {openIndex === index && (
               <div 
                 id={`faq-answer-${index}`}
-                className="px-4 pb-5 sm:px-6 text-gray-300 bg-neutral-800 rounded-b animate-fadeIn"
+                className="px-4 pb-5 sm:px-6 text-gray-300 bg-transparent rounded-b animate-fadeIn"
               >
                 <p>{item.answer}</p>
               </div>

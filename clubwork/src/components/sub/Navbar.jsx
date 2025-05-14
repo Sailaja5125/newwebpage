@@ -60,16 +60,16 @@ const NavBar = () => {
           {/* Logo */}
           <div className="flex items-center gap-7">
             <img src="/img/AU.png" alt="logo" className="w-30 h-10" />
-            <img src="/img/csikalogo.png" className="w-30 h-20" alt="Csi logo" />
+            <img src="/img/csikalogo.png" className="w-20 h-20" alt="Csi logo" />
           </div>
 
           {/* Navigation Links and Audio Button */}
           <div className="flex h-full items-center gap-5">
             <div className='hidden md:block'>
-                <a className='nav-hover-btn' href='/domains'>
-                  Domains
+                <a className='nav-hover-btn' href='#'>
+                  About Us
                 </a>
-                <a className='nav-hover-btn' href='/register'>
+                <a className='nav-hover-btn' href='https://forms.gle/pwPfdLTuKCBMzkFEA'>
                   Register
                 </a>
             </div>

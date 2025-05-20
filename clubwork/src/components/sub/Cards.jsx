@@ -1,16 +1,13 @@
 'use client'
 import React from 'react';
 import './Cards.css'
-import { useRouter } from 'next/navigation';
+
 const Cards = ({text , text1}) => {
-  const router = useRouter()
-  const handleClick = ()=>{
-    router.push(`/details/${text.split(" ")[0].toLowerCase()}`)
-  }
+  
   return (
-    <div onClick={handleClick}>
+    <div >
       <div className="container noselect">
-        <div className="canvas" onClick={handleClick}>
+        <div className="canvas" >
           <div className="tracker tr-1" />
           <div className="tracker tr-2" />
           <div className="tracker tr-3" />
@@ -26,7 +23,7 @@ const Cards = ({text , text1}) => {
               <div className="cyber-lines">
                 <span /><span /><span /><span />
               </div>
-              <p id="prompt" onClick={handleClick}>{text}</p>
+              <p id="prompt" >{text}</p>
               <div className="title" >{text1}</div>
               <div className="glowing-elements">
                 <div className="glow-1" />

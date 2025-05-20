@@ -4,6 +4,7 @@ import Schedule from "./../components/Schedule";
 import Sponsors from "./../components/Sponsors";
 import Dignitaries from "./../components/Dignitaries";
 import FAQAccordion from "./../components/sub/Accordian";
+import About from "./../components/About";
 import Footer from "./../components/sub/Footer";
 
 
@@ -23,6 +24,7 @@ export default function Home() {
         <Hero />
         <Events />
         <Dignitaries />
+        <About/>
         <FAQAccordion />
         <Footer />
       </div>

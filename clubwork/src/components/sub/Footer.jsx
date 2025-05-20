@@ -5,6 +5,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
+    //TODO yaha ek map add karna hai using iframe
     <footer className="bg-transparent text-white pt-12 pb-8 ">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
@@ -63,7 +64,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="pt-8 mt-8 border-t border-neutral-800 text-center text-gray-500 text-sm">
-          <p>Build by @Gojo</p>
+          <p>Build by @GOJO</p>
           <p>© {currentYear} Avensis Regional Convention. All rights reserved.</p>
           <div className="mt-2">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>

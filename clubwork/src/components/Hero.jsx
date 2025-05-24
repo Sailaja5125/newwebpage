@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import NavBar from "./sub/Navbar";
 import { TextHoverEffectDemo } from "./sub/TextHoverEffect";
 import { ShootingStarsAndStarsBackgroundDemo } from "./sub/ShootingStarsAndStarsBackgroundDemo";
+import Ps from "./Ps";
 
 export default function Hero() {
   const fullText = "Regional Convention 2025";
@@ -30,11 +31,12 @@ export default function Hero() {
      The Registration fee for anurag students is only 500 per person until may 25
 */}
 {/* Responsive banner, centered above TextHoverEffectDemo */}
-<div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-11/12 sm:w-2/3 md:w-1/2 border-2 border-yellow-400  py-2 text-center  rounded-full shadow-md text-white p-2 ">
+<div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-11/12 sm:w-2/3 md:w-1/2 border-2 border-yellow-400  py-2 text-center  rounded-full shadow-md text-white p-2 mb-8">
   The Registration fee is only <span className="text-red-500">₹500 only</span> per person until May 25! <span className="text-red-500">Registration Deadline june 5th</span>
 </div>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-      <TextHoverEffectDemo/>        
+      <TextHoverEffectDemo/>    
+      <Ps/>    
       </div>
     </section>
   );

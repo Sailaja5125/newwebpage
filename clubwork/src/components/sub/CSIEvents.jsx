@@ -96,7 +96,7 @@ function CSIEvents() {
             </div>
             <div className="aspect-square">
               <img 
-                src="/img/CloudPoster.png" 
+                src="/img/events.jpg" 
                 alt="Cloud event poster" 
                 className="w-full h-full object-cover rounded-lg"
               />

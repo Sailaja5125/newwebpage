@@ -69,14 +69,12 @@ function Events() {
         <div className="w-full sm:w-1/3 h-auto flex items-center mt-9 p-7 flex-col gap-7">
           <Cards text={"TECH TALKS"} text1={"CAREER"} />
           <div className="text-white text-center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ducimus ab, eius nemo voluptatem consequatur dolore a fugiat voluptatum molestiae 
           </div>
         </div>
         {/* Second Card */}
         <div className="w-full sm:w-1/3 h-auto flex items-center mt-9 p-7 flex-col gap-7">
           <Cards text={"AWARD CEREMONY"} text1={"PRIDE"} />
           <div className="text-white text-center">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae ipsa quos magnam modi, quae, velit excepturi laborum aut minima id autem
           </div>
         </div>
       </div>

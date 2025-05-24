@@ -31,7 +31,7 @@ export default function Hero() {
 */}
 {/* Responsive banner, centered above TextHoverEffectDemo */}
 <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-11/12 sm:w-2/3 md:w-1/2 border-2 border-yellow-400  py-2 text-center  rounded-full shadow-md text-white p-2 ">
-  The Registration fee for Anurag students is only <span className="text-red-500">₹500 only</span> per person until May 25! <span className="text-red-500">Registration Deadline june 5th</span>
+  The Registration fee is only <span className="text-red-500">₹500 only</span> per person until May 25! <span className="text-red-500">Registration Deadline june 5th</span>
 </div>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
       <TextHoverEffectDemo/>        

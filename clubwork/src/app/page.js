@@ -6,6 +6,7 @@ import Dignitaries from "./../components/Dignitaries";
 import FAQAccordion from "./../components/sub/Accordian";
 import About from "./../components/About";
 import Footer from "./../components/sub/Footer";
+import Ps from "@/components/Ps";
 
 
 
@@ -25,6 +26,7 @@ export default function Home() {
         <Events />
         <Dignitaries />
         <About/>
+        <Ps/>
         <FAQAccordion />
         <Footer />
       </div>

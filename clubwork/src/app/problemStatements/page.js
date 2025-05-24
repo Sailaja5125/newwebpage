@@ -1,10 +1,10 @@
-import Ps from '../../components/Ps'
+import LoadingSimulator from '@/components/sub/LoadingSimulator'
 import React from 'react'
 
 function page() {
   return (
     <div>
-      <Ps/>
+      <LoadingSimulator/>
     </div>
   )
 }

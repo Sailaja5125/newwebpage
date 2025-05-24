@@ -5,7 +5,6 @@ import Cards from "./sub/Cards";
 
 
 function Events() {
-// TODO pura redefine karna hai
   return (
     <div id="Events" className="min-h-screen w-full flex flex-col items-center bg-transparent ">
       {" "}

@@ -66,7 +66,7 @@ const NavBar = () => {
           {/* Navigation Links and Audio Button */}
           <div className="flex h-full items-center gap-5">
             <div className='hidden md:block'>
-                <a className='nav-hover-btn' href='/problemStatements'>
+                <a className='nav-hover-btn' href='#problemStatements'>
                   Problem Statements
                 </a>
                 <a className='nav-hover-btn' href='https://forms.gle/pwPfdLTuKCBMzkFEA'>

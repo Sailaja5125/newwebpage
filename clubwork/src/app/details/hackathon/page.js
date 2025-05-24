@@ -38,7 +38,7 @@ function Page() {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-zentry font-bold text-white mb-6">
               Domains
             </h1>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4 items-center">
               <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
                 <Card
                   img="/img/webdomain.png"

@@ -16,9 +16,9 @@ const LoadingSimulator = () => {
         }
 
         const interval = setInterval(() => {
-            setTimeElapsed(prev => prev + 1);
-            setProgress(Math.min(100, (timeElapsed / 1000) * 100));
-        }, 1000);
+            setTimeElapsed(prev => prev + 60);
+            setProgress(Math.min(100, (timeElapsed / 5000) * 100));
+        }, 900);
 
         return () => clearInterval(interval);
     }, [timeElapsed]);

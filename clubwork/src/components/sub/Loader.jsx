@@ -16,7 +16,7 @@ const Loader = ({ timeElapsed }) => {
     const [message, setMessage] = useState("Initializing...");
 
     useEffect(() => {
-        if (timeElapsed % 2 === 0) {
+        if (timeElapsed % 5 === 0) {
             setMessage(messages[Math.floor(Math.random() * messages.length)]);
         }
         if (timeElapsed % 200 === 0) {

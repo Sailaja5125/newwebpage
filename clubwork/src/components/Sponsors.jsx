@@ -22,6 +22,9 @@ function Sponsors() {
         <div className='text-3xl sm:text-6xl text-gray-700 font-mono font-bold'>
           <img src="/img/zerotocode.png" alt="zero to code" className='relative bottom-20' />
         </div>
+        <div className='text-3xl sm:text-6xl text-gray-700 font-mono font-bold'>
+          <img src="/img/livestockifylogo.png" alt="livestockify" className='w-24 h-10'/>
+        </div>
       </div>
 
       

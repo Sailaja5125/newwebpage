@@ -26,9 +26,6 @@ function Sponsors() {
           <img src="/img/livestockifylogo.png" alt="livestockify" className='w-24 h-10'/>
         </div>
       </div>
-
-      
-
     </div>
   );
 }

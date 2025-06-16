@@ -72,6 +72,9 @@ const NavBar = () => {
                 <a className='nav-hover-btn' href='https://forms.gle/pwPfdLTuKCBMzkFEA'>
                   Register
                 </a>
+                <a className='nav-hover-btn' href='#'>
+                  Schedule
+                </a>
             </div>
           </div>
         </nav>

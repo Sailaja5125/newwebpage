@@ -7,6 +7,7 @@ import FAQAccordion from "./../components/sub/Accordian";
 import About from "./../components/About";
 import Footer from "./../components/sub/Footer";
 import Ps from "./../components/Ps";
+import TwoChiefs from "./../components/Guests";
 
 
 
@@ -24,6 +25,7 @@ export default function Home() {
       <div className="relative z-10">
         <Hero />
         <Events />
+        <TwoChiefs/>
         <Dignitaries />
         <About/>
         <Ps/>

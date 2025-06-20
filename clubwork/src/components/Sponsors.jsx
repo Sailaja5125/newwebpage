@@ -12,7 +12,7 @@ function Sponsors() {
       title="p<b>a</b>rt<b>ner</b>s"
       containerClass="mt-5 !text-white text-center"
       />
-      <div className='flex flex-wrap gap-8 sm:gap-16 w-3/4 sm:w-full justify-center'>
+      <div className='flex flex-wrap gap-4 sm:gap-16 w-3/4 sm:w-full justify-center p-8'>
         <div className='text-2xl sm:text-6xl text-white font-sans font-semibold'>
           <img src="/img/Eshway.png" alt="eshway" className='h-16' />
         </div>
@@ -24,6 +24,15 @@ function Sponsors() {
         </div>
         <div className='text-3xl sm:text-6xl text-gray-700 font-mono font-bold'>
           <img src="/img/livestockifylogo.png" alt="livestockify" className='w-24 h-10'/>
+        </div>
+        <div className='text-3xl sm:text-6xl text-gray-700 font-mono font-bold'>
+          <img src="/img/Akshaya.jpg" alt="Akshaya" className='w-24 h-10'/>
+        </div>
+        <div className='text-3xl sm:text-6xl text-gray-700 font-mono font-bold'>
+          <img src="/img/I20fever.jpg" alt="i20fever" className='w-24 h-10'/>
+        </div>
+          <div className='text-3xl sm:text-6xl text-gray-700 font-mono font-bold'>
+          <img src="/img/Decathalon.jpg" alt="Akshaya" className='w-24 h-10'/>
         </div>
       </div>
     </div>

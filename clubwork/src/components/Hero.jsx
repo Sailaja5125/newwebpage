@@ -29,7 +29,6 @@ export default function Hero() {
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
       <TextHoverEffectDemo/>    
       <div className="flex gap-2">
-      <Ps/>
             <a
             className="text-white h-10 w-fit border-2 border-white rounded-md hover:border-none hover:bg-white hover:text-black flex justify-center items-center p-2 m-3 text-nowrap"
             href="/schedule"
